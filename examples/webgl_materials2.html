@@ -48,7 +48,8 @@
 				imgTexture2.wrapS = imgTexture2.wrapT = THREE.RepeatWrapping;
 				imgTexture2.anisotropy = 16;
 
-				var imgTexture = THREE.ImageUtils.loadTexture( "textures/lava/lavatile.jpg" );
+				//var imgTexture = THREE.ImageUtils.loadTexture( "textures/lava/lavatile.jpg" );
+				var imgTexture = THREE.ImageUtils.loadTexture( "textures/sports/bball.png" );
 				imgTexture.repeat.set( 4, 2 );
 				imgTexture.wrapS = imgTexture.wrapT = THREE.RepeatWrapping;
 				imgTexture.anisotropy = 16;
@@ -86,7 +87,7 @@
 				var sphere, geometry, material;
 
 
-                function renderFloor(scene, sideCount, yy, xOff, yOff, zOff){
+                function renderFloor(scene, sideCount, ii,  yy, xOff, yOff, zOff){
                     for(var xx = 0; xx  < sideCount; xx++){
                         for (var zz = 0; zz < sideCount; zz++){
                             var x = diameter * xx;
@@ -101,8 +102,8 @@
                             sphere = new THREE.Mesh( geometry, material );
 
 
-                            sphere.position.x = x  + xOff;   // ( i % 4 ) * diameter - diameter;
-                            sphere.position.z = z  + zOff;// Math.floor( i / 4 ) * diameter - diameter;
+                            sphere.position.x = x    + xOff;   // ( i % 4 ) * diameter - diameter;
+                            sphere.position.z = z    + zOff;// Math.floor( i / 4 ) * diameter - diameter;
                             sphere.position.y = y + yOff;
 
                             objects.push( sphere );
@@ -122,7 +123,7 @@
                     var sideCount =   Math.ceil(Math.sqrt( Math.ceil(ballCount/2)));
                     currentSideCount = sideCount;
                     for ( var yy = 0 ;  yy < sideCount; yy++){
-                        renderFloor(scene, currentSideCount , yy, xOff, yOff, zOff);
+                        renderFloor(scene, currentSideCount, yy , yy, xOff, yOff, zOff);
                         currentSideCount--;
                     }
                 };
