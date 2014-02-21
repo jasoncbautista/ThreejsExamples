@@ -86,7 +86,7 @@
 				var sphere, geometry, material;
 
 
-                function renderFloor(scene, sideCount, yy){
+                function renderFloor(scene, sideCount, yy, xOff, yOff, zOff){
                     for(var xx = 0; xx  < sideCount; xx++){
                         for (var zz = 0; zz < sideCount; zz++){
                             var x = diameter * xx;
@@ -101,9 +101,9 @@
                             sphere = new THREE.Mesh( geometry, material );
 
 
-                            sphere.position.x = x   // ( i % 4 ) * diameter - diameter;
-                            sphere.position.z = z // Math.floor( i / 4 ) * diameter - diameter;
-                            sphere.position.y = y;
+                            sphere.position.x = x  + xOff;   // ( i % 4 ) * diameter - diameter;
+                            sphere.position.z = z  + zOff;// Math.floor( i / 4 ) * diameter - diameter;
+                            sphere.position.y = y + yOff;
 
                             objects.push( sphere );
 
@@ -115,20 +115,22 @@
 
                 };
 
-                function renderPyramid(scene, ballCount){
+                function renderPyramid(scene, ballCount, xOff, yOff, zOff){
 
                     material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: false} );
                     // divide by two, and sqrt 
                     var sideCount =   Math.ceil(Math.sqrt( Math.ceil(ballCount/2)));
                     currentSideCount = sideCount;
                     for ( var yy = 0 ;  yy < sideCount; yy++){
-                        renderFloor(scene, currentSideCount , yy);
+                        renderFloor(scene, currentSideCount , yy, xOff, yOff, zOff);
                         currentSideCount--;
                     }
                 };
 
 
-                renderPyramid(scene, 100);
+                shotsTaken = 100;
+                renderPyramid(scene, shotsTaken, 0,0,0);
+                renderPyramid(scene, Math.floor(shotsTaken*0.3), shotsTaken*2,0,0);
 				//for ( var i = 0, l = materials.length; i < l; i ++ ) {
 
 					
