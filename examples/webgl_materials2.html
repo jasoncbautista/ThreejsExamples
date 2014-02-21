@@ -85,26 +85,53 @@
 
 				var sphere, geometry, material;
 
+
+                function renderFloor(scene, sideCount, yy){
+                    for(var xx = 0; xx  < sideCount; xx++){
+                        for (var zz = 0; zz < sideCount; zz++){
+                            var x = diameter * xx;
+                            var z = diameter * zz;
+                            var y = diameter * yy;
+
+                            material = materials[ 0 ];
+                            // material = materials[ i ];
+
+                            geometry = material.shading == THREE.FlatShading ? geometry_flat : geometry_smooth;
+
+                            sphere = new THREE.Mesh( geometry, material );
+
+
+                            sphere.position.x = x   // ( i % 4 ) * diameter - diameter;
+                            sphere.position.z = z // Math.floor( i / 4 ) * diameter - diameter;
+                            sphere.position.y = y;
+
+                            objects.push( sphere );
+
+                            scene.add( sphere );
+
+
+                        }
+                    }
+
+                };
+
+                function renderPyramid(scene, ballCount){
+
+                    material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: false} );
+                    // divide by two, and sqrt 
+                    var sideCount =   Math.ceil(Math.sqrt( Math.ceil(ballCount/2)));
+                    currentSideCount = sideCount;
+                    for ( var yy = 0 ;  yy < sideCount; yy++){
+                        renderFloor(scene, currentSideCount , yy);
+                        currentSideCount--;
+                    }
+                };
+
+
+                renderPyramid(scene, 100);
 				//for ( var i = 0, l = materials.length; i < l; i ++ ) {
-				for ( var i = 0, l =  1000; i < l; i ++ ) {
 
-					material = materials[ 0 ];
-					// material = materials[ i ];
-
-					geometry = material.shading == THREE.FlatShading ? geometry_flat : geometry_smooth;
-
-					sphere = new THREE.Mesh( geometry, material );
-
-                
-					sphere.position.x = ( i % 4 ) * diameter - diameter;
-					sphere.position.z = Math.floor( i / 4 ) * diameter - diameter;
-
-					objects.push( sphere );
-
-					scene.add( sphere );
-
-				}
-
+					
 				particleLight = new THREE.Mesh( new THREE.SphereGeometry( 4, 8, 8 ), new THREE.MeshBasicMaterial( { color: 0xffffff } ) );
 				scene.add( particleLight );
 
