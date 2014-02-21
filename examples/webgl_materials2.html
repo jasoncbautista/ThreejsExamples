@@ -76,15 +76,17 @@
 
 				// Spheres geometry
 
-				var geometry_smooth = new THREE.SphereGeometry( 70, 32, 16 );
-				var geometry_flat = new THREE.SphereGeometry( 70, 32, 16 );
+                var radius = 10;
+                var diameter = radius*2;
+				var geometry_smooth = new THREE.SphereGeometry( radius, 32, 16 );
+				var geometry_flat = new THREE.SphereGeometry( radius, 32, 16 );
 
 				objects = [];
 
 				var sphere, geometry, material;
 
 				//for ( var i = 0, l = materials.length; i < l; i ++ ) {
-				for ( var i = 0, l =  1; i < l; i ++ ) {
+				for ( var i = 0, l =  1000; i < l; i ++ ) {
 
 					material = materials[ 0 ];
 					// material = materials[ i ];
@@ -93,8 +95,9 @@
 
 					sphere = new THREE.Mesh( geometry, material );
 
-					sphere.position.x = ( i % 4 ) * 200 - 200;
-					sphere.position.z = Math.floor( i / 4 ) * 200 - 200;
+                
+					sphere.position.x = ( i % 4 ) * diameter - diameter;
+					sphere.position.z = Math.floor( i / 4 ) * diameter - diameter;
 
 					objects.push( sphere );
 
